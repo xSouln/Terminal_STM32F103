@@ -156,7 +156,7 @@ int main(void)
   TimerTask1 = xTimerAdd(&TimerMain, (xTimerAction)TimerAction1, 1000, 100);
   TimerTask1->State.Enable = true;
   
-  xTimerAdd(&TimerMain, (xTimerAction)TimerAction2, 20000, 0)->State.Enable = true;
+  //xTimerAdd(&TimerMain, (xTimerAction)TimerAction2, 20000, 0)->State.Enable = true;
   /* USER CODE END 2 */
 
   /* Infinite loop */
