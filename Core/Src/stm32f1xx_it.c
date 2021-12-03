@@ -37,6 +37,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "xTimer.h"
+#include "Usart1.h"
 
 extern xTimerT TimerMain;
 /* USER CODE END 0 */
@@ -91,7 +92,8 @@ void MemManage_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-  xTimerDecrement(&TimerMain);
+  xTimerDecrement(&TimerMain);  
+  Usart1_TransmitionHandler();
   /* USER CODE END SysTick_IRQn 0 */
   //HAL_IncTick();
   //HAL_SYSTICK_IRQHandler();
@@ -127,7 +129,7 @@ void TIM3_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  Usart1_IRQ();
   /* USER CODE END USART1_IRQn 0 */
   //HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */

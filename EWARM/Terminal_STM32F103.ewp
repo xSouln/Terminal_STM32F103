@@ -221,6 +221,7 @@
                     <name>CCDefines</name>
                     <state>USE_HAL_DRIVER</state>
                     <state>STM32F103xB</state>
+                    <state>pattern_stm32f4xx</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -350,9 +351,10 @@
                     <state>$STM32CubRepositorys$/STM32Cube_FW_F1_V1.6.1/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy</state>
                     <state>$STM32CubRepositorys$/STM32Cube_FW_F1_V1.6.1/Drivers/CMSIS/Device/ST/STM32F1xx/Include</state>
                     <state>$STM32CubRepositorys$/STM32Cube_FW_F1_V1.6.1/Drivers/CMSIS/Include</state>
-                    <state>$xLibMcrocontrollers$\</state>
-                    <state>$xLibMcrocontrollers$\Macros</state>
-                    <state>$xLibMcrocontrollers$\Patterns</state>
+                    <state>$xLibMcrocontrollers$/</state>
+                    <state>$xLibMcrocontrollers$/Macroses</state>
+                    <state>$xLibMcrocontrollers$/Patterns</state>
+                    <state>$xLibMcrocontrollers$/Bootloaders/STM32F4xx</state>
                     <state>$PROJ_DIR$/../Sources</state>
                     <state>$PROJ_DIR$/../Sources/Interfaces</state>
                 </option>
@@ -1072,10 +1074,10 @@
             <group>
                 <name>Interfaces</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Sources\Interfaces\UsartX.c</name>
+                    <name>$PROJ_DIR$\..\Sources\Interfaces\Usart1.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Sources\Interfaces\UsartX.h</name>
+                    <name>$PROJ_DIR$\..\Sources\Interfaces\Usart1.h</name>
                 </file>
             </group>
             <group>
@@ -1101,6 +1103,24 @@
             </group>
             <group>
                 <name>xLibMcrocontrollers</name>
+                <group>
+                    <name>Macroses</name>
+                    <file>
+                        <name>$xLibMcrocontrollers$\Macroses\xMacroses.h</name>
+                    </file>
+                </group>
+                <group>
+                    <name>Patterns</name>
+                    <file>
+                        <name>$xLibMcrocontrollers$\Patterns\pattern_stm32f4xx_i2c.h</name>
+                    </file>
+                    <file>
+                        <name>$xLibMcrocontrollers$\Patterns\pattern_stm32f4xx_spi.h</name>
+                    </file>
+                    <file>
+                        <name>$xLibMcrocontrollers$\Patterns\pattern_stm32f4xx_uart.h</name>
+                    </file>
+                </group>
                 <file>
                     <name>$xLibMcrocontrollers$\xConverter.c</name>
                 </file>
@@ -1117,25 +1137,16 @@
                     <name>$xLibMcrocontrollers$\xPort.h</name>
                 </file>
                 <file>
-                    <name>$xLibMcrocontrollers$\xRequest.h</name>
-                </file>
-                <file>
-                    <name>$xLibMcrocontrollers$\xResponse.c</name>
-                </file>
-                <file>
-                    <name>$xLibMcrocontrollers$\xResponse.h</name>
-                </file>
-                <file>
                     <name>$xLibMcrocontrollers$\xRx.c</name>
                 </file>
                 <file>
                     <name>$xLibMcrocontrollers$\xRx.h</name>
                 </file>
                 <file>
-                    <name>$xLibMcrocontrollers$\xTaskLine.c</name>
+                    <name>$xLibMcrocontrollers$\xTask.c</name>
                 </file>
                 <file>
-                    <name>$xLibMcrocontrollers$\xTaskLine.h</name>
+                    <name>$xLibMcrocontrollers$\xTask.h</name>
                 </file>
                 <file>
                     <name>$xLibMcrocontrollers$\xThread.c</name>
@@ -1148,6 +1159,12 @@
                 </file>
                 <file>
                     <name>$xLibMcrocontrollers$\xTimer.h</name>
+                </file>
+                <file>
+                    <name>$xLibMcrocontrollers$\xTransaction.c</name>
+                </file>
+                <file>
+                    <name>$xLibMcrocontrollers$\xTransaction.h</name>
                 </file>
                 <file>
                     <name>$xLibMcrocontrollers$\xTx.c</name>

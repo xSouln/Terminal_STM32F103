@@ -52,6 +52,7 @@
 #include "xTimer.h"
 #include "Ports.h"
 #include "Bootloader.h"
+#include "Usart1.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -61,8 +62,6 @@
 xTimerT TimerMain;
 
 xTimerTaskT *TimerTask1;
-
-BootloaderInfoT bootloader_state;
 int request_start_main;
 
 uint32_t boot_jump_address;
@@ -99,7 +98,10 @@ void AppBoot()
 void TimerAction2(xTimerT* context, xTimerTaskT* task)
 {
   //to_boot = true;
-   AppBoot();
+   //AppBoot();
+  xTxAdd(&Usart1.Tx, "qwerty\r", sizeof_str("qwerty\r"));
+  //printf("%s", "qwerty\r");
+  Ports.C.Out->LED ^= true;
 }
 /* USER CODE END 0 */
 
@@ -111,6 +113,7 @@ void TimerAction2(xTimerT* context, xTimerTaskT* task)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  /*
   __set_PRIMASK(1);
   SCB->VTOR = ((uint32_t)0x08008000);
   //NVIC_SetVectorTable(0x08000000, 0x8000);
@@ -118,6 +121,7 @@ int main(void)
   
   boot_jump_address = *(uint32_t*)(APLICATION_ADDRESS + 4);
   app_boot = (AppFuncT)boot_jump_address;
+*/
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -146,14 +150,13 @@ int main(void)
   MX_USART3_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  bootloader_state.Crc = 0x0f;
-  bootloader_state.StartAddress++;
+  Usart1_Init();
   
   Ports.A.In->Value;
   Ports.B.In->Value;
   Ports.C.In->Value;
   
-  TimerTask1 = xTimerAdd(&TimerMain, (xTimerAction)TimerAction1, 1000, 100);
+  TimerTask1 = xTimerAdd(&TimerMain, (xTimerAction)TimerAction2, 1000, 1000);
   TimerTask1->State.Enable = true;
   
   //xTimerAdd(&TimerMain, (xTimerAction)TimerAction2, 20000, 0)->State.Enable = true;
@@ -163,8 +166,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    xTimer(&TimerMain);
-    
+    xTimer(&TimerMain);    
+    Usart1_Handler();
+    /*
     if(request_start_main != -1)
     {
       switch(request_start_main)
@@ -173,6 +177,7 @@ int main(void)
       }
       request_start_main = -1;
     }
+    */
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -241,7 +246,34 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/*
+#if defined(__GNUC__)
+  int _write(int fd, char * ptr, int len)
+  {
+    xTxAdd(&Usart1.Tx, buffer, size);
+    return len;
+  }
+#elif defined (__ICCARM__)
+#include "LowLevelIOInterface.h"
+  size_t __write(int handle, const unsigned char * buffer, size_t size)
+  {
+    xTxAdd(&Usart1.Tx, (uint8_t*)buffer, size);
+    return size;
+  }
 
+  int __io_putchar(int ch)
+  {
+    xTxPutByte(&Usart1.Tx, ch);
+    return true;
+  }
+#elif defined (__CC_ARM)
+  int fputc(int ch, FILE *f)
+  {
+      xTxPutByte(&Usart1.Tx, ch);
+      return ch;
+  }
+#endif
+*/
 /* USER CODE END 4 */
 
 /**
